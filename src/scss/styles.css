@@ -1,0 +1,442 @@
+@charset "UTF-8";
+@font-face {
+  font-family: "Open Sans";
+  src: url("public/fonts/OpenSans-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("public/fonts/OpenSans-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("public/fonts/OpenSans-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+/**
+  Нормализация блочной модели
+ */
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+/**
+  Убираем внутренние отступы слева тегам списков,
+  у которых есть атрибут class
+ */
+:where(ul, ol):where([class]) {
+  padding-left: 0;
+}
+
+/**
+  Убираем внешние отступы body и двум другим тегам,
+  у которых есть атрибут class
+ */
+body,
+:where(blockquote, figure, fieldset):where([class]) {
+  margin: 0;
+}
+
+/**
+  Убираем внешние отступы вертикали нужным тегам,
+  у которых есть атрибут class
+ */
+:where(h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+dl):where([class]) {
+  margin-block: 0;
+}
+
+:where(dd[class]) {
+  margin-left: 0;
+}
+
+:where(fieldset[class]) {
+  padding: 0;
+  border: none;
+}
+
+/**
+  Убираем стандартный маркер маркированному списку,
+  у которого есть атрибут class
+ */
+:where(ul[class]) {
+  list-style: none;
+}
+
+:where(address[class]) {
+  font-style: normal;
+}
+
+/**
+  Обнуляем вертикальные внешние отступы параграфа,
+  объявляем локальную переменную для внешнего отступа вниз,
+  чтобы избежать взаимодействие с более сложным селектором
+ */
+p {
+  --paragraphMarginBottom: 24px;
+  margin-block: 0;
+}
+
+/**
+  Внешний отступ вниз для параграфа без атрибута class,
+  который расположен не последним среди своих соседних элементов
+ */
+p:where(:not([class]):not(:last-child)) {
+  margin-bottom: var(--paragraphMarginBottom);
+}
+
+/**
+  Упрощаем работу с изображениями и видео
+ */
+img,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/**
+  Наследуем свойства шрифт для полей ввода
+ */
+input,
+textarea,
+select,
+button {
+  font: inherit;
+}
+
+html {
+  /**
+    Пригодится в большинстве ситуаций
+    (когда, например, нужно будет "прижать" футер к низу сайта)
+   */
+  height: 100%;
+  /**
+    Убираем скачок интерфейса по горизонтали
+    при появлении / исчезновении скроллбара
+   */
+  scrollbar-gutter: stable;
+  /**
+    Плавный скролл
+   */
+  scroll-behavior: smooth;
+}
+
+body {
+  /**
+    Пригодится в большинстве ситуаций
+    (когда, например, нужно будет "прижать" футер к низу сайта)
+   */
+  min-height: 100%;
+  /**
+    Унифицированный интерлиньяж
+   */
+  line-height: 1.5;
+}
+
+/**
+  Нормализация высоты элемента ссылки при его инспектировании в DevTools
+ */
+a:where([class]) {
+  display: inline-flex;
+}
+
+/**
+  Курсор-рука при наведении на элемент
+ */
+button,
+label {
+  cursor: pointer;
+}
+
+/**
+  Убирает серую подсветку при тапе на мобильных устройствах (iOS/Android)
+ */
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/**
+  Приводим к единому цвету svg-элементы
+  (за исключением тех, у которых уже указан
+  атрибут fill со значением 'none' или начинается с 'url')
+ */
+:where([fill]:not([fill=none],
+[fill^=url])) {
+  fill: currentColor;
+}
+
+/**
+  Приводим к единому цвету svg-элементы
+  (за исключением тех, у которых уже указан
+  атрибут stroke со значением 'none')
+ */
+:where([stroke]:not([stroke=none],
+[stroke^=url])) {
+  stroke: currentColor;
+}
+
+/**
+  Чиним баг задержки смены цвета при взаимодействии с svg-элементами
+ */
+svg * {
+  transition-property: fill, stroke;
+}
+
+/**
+  Приведение рамок таблиц в классический 'collapse' вид
+ */
+:where(table) {
+  border-collapse: collapse;
+  border-color: currentColor;
+}
+
+/**
+  Удаляем все анимации и переходы для людей,
+  которые предпочитают их не использовать
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+html {
+  scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  max-width: 1920px;
+}
+
+* {
+  font-family: "Open Sans", sans-serif;
+  font-size: 13px;
+}
+
+body {
+  background-color: #fff;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  border-radius: 5px;
+  border: none;
+  line-height: 2;
+  letter-spacing: 0.2em;
+  font-weight: 600;
+}
+
+.header {
+  height: 40px;
+  background: #2E3192;
+  display: flex;
+  align-items: center;
+  line-height: 1.6;
+}
+
+.header-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+  padding-inline: 40px;
+  width: 100%;
+}
+.header-info .header-info-schedule {
+  display: inline-block;
+  width: 266px;
+  font-weight: normal;
+}
+.header-info .header-info-general {
+  display: flex;
+  column-gap: 40px;
+}
+.header-info .header-info-general .header-info-phone {
+  display: inline-flex;
+  column-gap: 10px;
+}
+.header-info .header-info-general .header-info-phone .header-info-phone-icon {
+  width: 17px;
+  aspect-ratio: 1;
+}
+.header-info .header-info-general .header-info-address {
+  display: inline-flex;
+  column-gap: 10px;
+}
+.header-info .header-info-general .header-info-address .header-info-address-icon {
+  width: 17px;
+  aspect-ratio: 1;
+}
+
+.hero-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 45px;
+  height: 100px;
+}
+.hero-navbar img {
+  width: 135px;
+  height: 17px;
+  aspect-ratio: 1;
+}
+
+.hero-navbar-list {
+  display: flex;
+  column-gap: 65px;
+  list-style: none;
+}
+.hero-navbar-list a {
+  text-decoration: none;
+  color: #1E2D78;
+  font-weight: 600;
+  letter-spacing: 2.6px;
+  font-size: 13px;
+  line-height: 77%;
+  text-transform: uppercase;
+}
+
+.hero-navbar-buttons {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+.hero-navbar-buttons .hero-navbar-search-button {
+  background: transparent;
+  color: #1E2D78;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 2.6px;
+  border: none;
+  width: 63px;
+  height: 59px;
+}
+.hero-navbar-buttons .hero-navbar-hamburger-menu {
+  width: 49px;
+  height: 49px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  background: #FDEAEA;
+  border: none;
+}
+
+.hero-info-wrapper {
+  background: url("public/images/hero-background.png") center/contain no-repeat;
+  width: 100%;
+  height: 650px;
+  z-index: -1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-inline: 40px;
+}
+
+.hero-swiper-pagination {
+  width: 55px;
+  height: 55px;
+  aspect-ratio: 1;
+  background: #fff;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  padding: 0;
+}
+.hero-swiper-pagination svg {
+  color: #1E2D78;
+  width: 27px;
+  height: 49px;
+}
+
+.hero-info-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.hero-info-body .hero-info-title {
+  background: #f4572e;
+  width: 168px;
+  height: 29px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+.hero-info-body .hero-info-title h1 {
+  text-transform: uppercase;
+  font-weight: 600;
+  line-height: 1.7;
+  letter-spacing: 0.15em;
+}
+.hero-info-body .hero-info-subtitle h2 {
+  background: #fff;
+  border-radius: 5px;
+  height: 70px;
+  width: fit-content;
+  font-size: 65px;
+  font-weight: bold;
+  color: #1E2D78;
+  line-height: 1.18;
+  letter-spacing: 0;
+  padding-inline: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 10px;
+}
+.hero-info-body .hero-info-buttons {
+  display: flex;
+  gap: 10px;
+}
+.hero-info-body .hero-info-buttons .hero-info-view-button {
+  background: #2E3192;
+  width: 180px;
+  height: 55px;
+  color: #fff;
+}
+.hero-info-body .hero-info-buttons .hero-info-purchase-button {
+  background: #ffffff;
+  width: 180px;
+  height: 55px;
+  color: #1E2D78;
+}
+
+/*# sourceMappingURL=styles.css.map */
