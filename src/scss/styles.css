@@ -225,7 +225,6 @@ html {
   padding: 0;
   width: 100%;
   height: 100vh;
-  overflow: hidden;
   max-width: 1920px;
 }
 
@@ -242,6 +241,19 @@ body::-webkit-scrollbar {
   display: none;
 }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
 .button {
   display: flex;
   align-items: center;
@@ -252,10 +264,15 @@ body::-webkit-scrollbar {
   line-height: 2;
   letter-spacing: 0.2em;
   font-weight: 600;
+  transition: all 0.5s ease;
+}
+
+.button:hover {
+  transform: scale(1.05);
 }
 
 .header {
-  height: 40px;
+  height: 3.05rem;
   background: #2E3192;
   display: flex;
   align-items: center;
@@ -264,6 +281,7 @@ body::-webkit-scrollbar {
 
 .header-info {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   color: #fff;
@@ -272,7 +290,7 @@ body::-webkit-scrollbar {
 }
 .header-info .header-info-schedule {
   display: inline-block;
-  width: 266px;
+  width: 20rem;
   font-weight: normal;
 }
 .header-info .header-info-general {
@@ -284,7 +302,7 @@ body::-webkit-scrollbar {
   column-gap: 10px;
 }
 .header-info .header-info-general .header-info-phone .header-info-phone-icon {
-  width: 17px;
+  width: 1.3rem;
   aspect-ratio: 1;
 }
 .header-info .header-info-general .header-info-address {
@@ -292,7 +310,7 @@ body::-webkit-scrollbar {
   column-gap: 10px;
 }
 .header-info .header-info-general .header-info-address .header-info-address-icon {
-  width: 17px;
+  width: 1.3rem;
   aspect-ratio: 1;
 }
 
@@ -311,10 +329,18 @@ body::-webkit-scrollbar {
 
 .hero-navbar-list {
   display: flex;
-  column-gap: 65px;
   list-style: none;
 }
-.hero-navbar-list a {
+.hero-navbar-list .hero-navbar-item {
+  padding-block: 40px;
+}
+
+.hero-navbar-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 115px;
+  position: relative;
   text-decoration: none;
   color: #1E2D78;
   font-weight: 600;
@@ -322,6 +348,19 @@ body::-webkit-scrollbar {
   font-size: 13px;
   line-height: 77%;
   text-transform: uppercase;
+}
+.hero-navbar-link::before {
+  content: "";
+  position: absolute;
+  top: -45px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: #DD3333;
+  transition: width 0.3s ease;
+}
+.hero-navbar-link:hover::before {
+  width: 100%;
 }
 
 .hero-navbar-buttons {
@@ -358,6 +397,7 @@ body::-webkit-scrollbar {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 125px;
 }
 
 .hero-info {
@@ -365,6 +405,7 @@ body::-webkit-scrollbar {
   align-items: center;
   justify-content: space-between;
   margin-inline: 40px;
+  margin-top: 145px;
 }
 
 .hero-swiper-pagination {
@@ -389,6 +430,8 @@ body::-webkit-scrollbar {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 15px;
+  margin-right: 690px;
 }
 .hero-info-body .hero-info-title {
   background: #f4572e;
@@ -409,22 +452,23 @@ body::-webkit-scrollbar {
 .hero-info-body .hero-info-subtitle h2 {
   background: #fff;
   border-radius: 5px;
-  height: 70px;
   width: fit-content;
-  font-size: 65px;
+  font-size: clamp(0.8rem, 3.12vw, 4.6rem);
   font-weight: bold;
   color: #1E2D78;
   line-height: 1.18;
   letter-spacing: 0;
-  padding-inline: 20px;
+  padding-inline: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 0 10px;
+  white-space: nowrap;
+  margin: 0 0;
+  margin-bottom: 10px;
 }
 .hero-info-body .hero-info-buttons {
   display: flex;
-  gap: 10px;
+  gap: 15px;
 }
 .hero-info-body .hero-info-buttons .hero-info-view-button {
   background: #2E3192;
@@ -437,6 +481,61 @@ body::-webkit-scrollbar {
   width: 180px;
   height: 55px;
   color: #1E2D78;
+}
+
+.hero-pagination-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.hero-pagination-button {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  background-color: #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.hero-pagination-item:nth-child(1) .hero-pagination-button {
+  background-color: #F4572E;
+}
+
+.hero-pagination-item:nth-child(2) .hero-pagination-button {
+  background-color: #CAE3F9;
+}
+
+.hero-pagination-item:nth-child(3) .hero-pagination-button {
+  background-color: #1E2D78;
+}
+
+.hero-pagination-item:nth-child(4) .hero-pagination-button {
+  background-color: #FECBCB;
+}
+
+.is-current {
+  transform: scale(2);
+}
+
+@media (max-width: 1080px) {
+  .header {
+    height: auto;
+    padding-block: 10px;
+  }
+  .header-info {
+    justify-content: center;
+    white-space: nowrap;
+    height: auto;
+  }
+  .header-info-general {
+    flex-wrap: wrap;
+  }
+  .hero-navbar-list {
+    display: none;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */

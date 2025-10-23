@@ -60,7 +60,7 @@ body::-webkit-scrollbar {
 }
 
 .header {
-  height: 40px;
+  height: 3.05rem;
   background: $bg-purple;
   display: flex;
   align-items: center;
@@ -78,7 +78,7 @@ body::-webkit-scrollbar {
 
   .header-info-schedule {
     display: inline-block;
-    width: 266px;
+    width: 20rem;
     font-weight: normal;
   }
 
@@ -91,7 +91,7 @@ body::-webkit-scrollbar {
       column-gap: 10px;
 
       .header-info-phone-icon {
-        width: 17px;
+        width: 1.3rem;
         aspect-ratio: 1;
       }
     }
@@ -101,7 +101,7 @@ body::-webkit-scrollbar {
       column-gap: 10px;
 
       .header-info-address-icon {
-        width: 17px;
+        width: 1.3rem;
         aspect-ratio: 1;
       }
     }
@@ -124,7 +124,6 @@ body::-webkit-scrollbar {
 
 .hero-navbar-list {
   display: flex;
-  // column-gap: 65px;
   list-style: none;
 
   .hero-navbar-item {
@@ -259,9 +258,8 @@ body::-webkit-scrollbar {
     h2 {
       background: #fff;
       border-radius: 5px;
-      height: 70px;
       width: fit-content;
-      font-size: 60px;
+      font-size: clamp(0.8rem,3.12vw,4.6rem);
       font-weight: bold;
       color: $text-color;
       line-height: 1.18;
@@ -270,6 +268,7 @@ body::-webkit-scrollbar {
       display: flex;
       align-items: center;
       justify-content: center;
+      white-space: nowrap;
       margin: 0 0;
       margin-bottom: 10px;
     }
@@ -355,6 +354,8 @@ body::-webkit-scrollbar {
   .hero-navbar-list {
     display: none;
   }
+
+
 }
 
 @media (max-width: 620px) {
